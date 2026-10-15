@@ -1,44 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvel article{% endblock %}
+{% block title %}Créer un nouvel article{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1>Créer un nouvel article</h1>
+<div class="container mt-4">
+    <h1>Créer un nouvel article</h1>
 
-        {{ form_start(formulaire) }}
+    {{ form_start(formulaire) }}
 
-            <div class="mb-3">
-                {{ form_label(formulaire.titre) }}
-                {{ form_widget(formulaire.titre, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(formulaire.titre) }}
-            </div>
+        <div class="mb-3">
+            {{ form_label(formulaire.titre) }}
+            {{ form_widget(formulaire.titre, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(formulaire.titre) }}
+        </div>
 
-            <div class="mb-3">
-                {{ form_label(formulaire.contenu) }}
-                {{ form_widget(formulaire.contenu, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(formulaire.contenu) }}
-            </div>
+        <div class="mb-3">
+            {{ form_label(formulaire.contenu) }}
+            {{ form_widget(formulaire.contenu, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(formulaire.contenu) }}
+        </div>
 
-            <div class="mb-3">
-                {{ form_label(formulaire.auteur) }}
-                {{ form_widget(formulaire.auteur, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(formulaire.auteur) }}
-            </div>
+        <div class="mb-3">
+            {{ form_label(formulaire.auteur) }}
+            {{ form_widget(formulaire.auteur, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(formulaire.auteur) }}
+        </div>
 
-            <div class="mb-3">
-                {{ form_label(formulaire.dataCreation) }}
-                {{ form_widget(formulaire.dataCreation, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(formulaire.dataCreation) }}
-            </div>
+        <div class="mb-3">
+            {{ form_label(formulaire.dataCreation) }}
+            {{ form_widget(formulaire.dataCreation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(formulaire.dataCreation) }}
+        </div>
 
-            <div class="form-check mb-3">
-                {{ form_widget(formulaire.publie, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_label(formulaire.publie, null, {'label_attr': {'class': 'form-check-label'}}) }}
-            </div>
+        <div class="form-check mb-3">
+            {{ form_widget(formulaire.publie, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(formulaire.publie, null, {'label_attr': {'class': 'form-check-label'}}) }}
+            {{ form_errors(formulaire.publie) }}
+        </div>
 
-            {{ form_widget(formulaire.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+        <div class="mb-3">
+            {{ form_label(formulaire.categorie) }}
+            {{ form_widget(formulaire.categorie, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(formulaire.categorie) }}
+        </div>
 
-        {{ form_end(formulaire) }}
-    </div>
+        {{ form_widget(formulaire.enregistrer, {'attr': {'class': 'btn btn-primary'}}) }}
+
+    {{ form_end(formulaire) }}
+</div>
 {% endblock %}

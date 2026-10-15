@@ -9,7 +9,7 @@ final class TacheControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/tache');
+        $client->request('GET', '/taches');
 
         self::assertResponseIsSuccessful();
     }
