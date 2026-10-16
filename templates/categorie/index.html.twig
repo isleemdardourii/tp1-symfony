@@ -13,6 +13,14 @@
         </a>
     </div>
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
     {% if categories is empty %}
         <div class="alert alert-info text-center py-5">
             <p class="mb-0">Aucune catégorie pour le moment.</p>
@@ -22,6 +30,7 @@
             {% for categorie in categories %}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 border-start border-primary border-4">
+
                         <div class="card-body">
                             <h3 class="card-title h5 mb-3">
                                 {{ categorie.nom }}
@@ -32,13 +41,41 @@
                                     {{ categorie.description }}
                                 </p>
                             {% endif %}
-                        </div>
 
-                        <div class="card-footer bg-transparent border-0 pt-0">
                             <span class="badge bg-secondary rounded-pill">
                                 📰 {{ categorie.articles|length }} article(s)
                             </span>
                         </div>
+
+                        <div class="card-footer bg-transparent border-0">
+                            <div class="d-flex flex-wrap gap-2">
+
+                                <a href="{{ path('app_categorie_show', {id: categorie.id}) }}"
+                                   class="btn btn-info btn-sm">
+                                    Afficher
+                                </a>
+
+                                <a href="{{ path('app_categorie_modifier', {id: categorie.id}) }}"
+                                   class="btn btn-warning btn-sm">
+                                    Modifier
+                                </a>
+
+                                <form method="post"
+                                      action="{{ path('app_categorie_supprimer', {id: categorie.id}) }}"
+                                      onsubmit="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');">
+
+                                    <input type="hidden"
+                                           name="_token"
+                                           value="{{ csrf_token('supprimer_categorie_' ~ categorie.id) }}">
+
+                                    <button class="btn btn-danger btn-sm" type="submit">
+                                        Supprimer
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             {% endfor %}
