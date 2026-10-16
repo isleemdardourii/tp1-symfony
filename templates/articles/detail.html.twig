@@ -3,26 +3,38 @@
 {% block title %}{{ article.titre }}{% endblock %}
 
 {% block body %}
+<div class="container mt-4">
 
-<h1 class="display-4">{{ article.titre }}</h1>
+    <h1>{{ article.titre }}</h1>
 
-<p class="text-muted mb-4 pb-2 border-bottom">
-    Par <strong class="text-dark">{{ article.auteur }}</strong>
-    — {{ article.dataCreation|date('d/m/Y à H:i') }}
+    <p>Par {{ article.auteur }}</p>
 
-    {% if article.publie %}
-        <span class="badge bg-success ms-2">✅ Publié</span>
-    {% else %}
-        <span class="badge bg-warning text-dark ms-2">Brouillon</span>
-    {% endif %}
-</p>
+    <div class="mb-4">
+        {{ article.contenu }}
+    </div>
 
-<div class="lead mb-5">
-    {{ article.contenu }}
+    <a href="{{ path('app_article_modifier', {id: article.id}) }}"
+       class="btn btn-primary">
+        Modifier
+    </a>
+
+    <form method="post"
+          action="{{ path('app_article_supprimer', {id: article.id}) }}"
+          style="display:inline-block"
+          onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?');">
+
+        <input type="hidden"
+               name="_token"
+               value="{{ csrf_token('supprimer_' ~ article.id) }}">
+
+        <button type="submit" class="btn btn-danger">
+            Supprimer
+        </button>
+    </form>
+
+    <a href="{{ path('app_articles') }}" class="btn btn-secondary">
+        Retour à la liste
+    </a>
+
 </div>
-
-<a href="{{ path('app_articles') }}" class="btn btn-outline-secondary">
-    ← Retour à la liste
-</a>
-
 {% endblock %}
