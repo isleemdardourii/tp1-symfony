@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Symfony TP2{% endblock %}</title>
+    <title>{% block title %}Symfony TP3{% endblock %}</title>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -16,12 +16,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
-	<a href="{{ path('app_categories') }}">📂 Catégories</a>
+
         <a class="navbar-brand" href="{{ path('app_accueil') }}">
-            Symfony TP2
+            Symfony TP3
         </a>
 
         <div class="navbar-nav">
+
             <a class="nav-link" href="{{ path('app_accueil') }}">
                 🏠 Accueil
             </a>
@@ -30,9 +31,36 @@
                 📰 Articles
             </a>
 
+            <a class="nav-link" href="{{ path('app_categories') }}">
+                📂 Catégories
+            </a>
+
             <a class="nav-link" href="{{ path('app_taches') }}">
                 ✅ Mes tâches
             </a>
+
+            {% if app.user %}
+
+                <span class="nav-link text-info">
+                    {{ app.user.userIdentifier }}
+                </span>
+
+                <a class="nav-link text-warning" href="{{ path('app_logout') }}">
+                    Déconnexion
+                </a>
+
+            {% else %}
+
+                <a class="nav-link" href="{{ path('app_login') }}">
+                    Connexion
+                </a>
+
+                <a class="nav-link" href="{{ path('app_register') }}">
+                    Inscription
+                </a>
+
+            {% endif %}
+
         </div>
     </div>
 </nav>
@@ -42,7 +70,7 @@
     {# Affichage des messages flash #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
-            <div class="alert alert-{{ label == 'danger' ? 'danger' : (label == 'success' ? 'success' : 'warning') }} alert-dismissible fade show"
+            <div class="alert alert-{{ label == 'danger' ? 'danger' : (label == 'success' ? 'success' : 'info') }} alert-dismissible fade show"
                  role="alert">
 
                 {{ message }}
@@ -52,7 +80,7 @@
                         data-bs-dismiss="alert"
                         aria-label="Close">
                 </button>
-            </div>
+       </div>
         {% endfor %}
     {% endfor %}
 

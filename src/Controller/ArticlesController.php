@@ -10,12 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class ArticlesController extends AbstractController
 {
     // Créer un article
     #[Route('/articles/nouveau', name: 'app_article_nouveau')]
+	#[IsGranted('ROLE_USER')]
     public function nouveau(
+
         Request $request,
         EntityManagerInterface $em
     ): Response {
@@ -25,7 +28,8 @@ final class ArticlesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($article);
+        $article->setAuteurUser($this->getUser());   
+	 $em->persist($article);
             $em->flush();
 
             $this->addFlash('success', 'Article créé avec succès !');
